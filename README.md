@@ -179,3 +179,5 @@ ENFORCE_EAGER="True"
 ```bash
 pip install vllm fastapi uvicorn torch numpy scipy
 ```
+
+git remote add origin git@github.com:zhhvvv/output_with_logits.git
