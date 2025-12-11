@@ -10,6 +10,7 @@ def topk(arr, k):
     values = arr[indices]
     return values, indices
 
+
 def get_eu(mode="prob", k=None):
     if mode == "eu":
         if k is None:
