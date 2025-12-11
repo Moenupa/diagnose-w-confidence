@@ -39,7 +39,15 @@ def test_if_logits_spying_works():
         # vocab size of Qwen2.5
         assert logits.numel() == 151936
 
-    print(outputs[0].outputs[0].text, len(logits_spy.processed_logits))
+    from pprint import pp
+
+    pp(
+        {
+            "text": outputs[0].outputs[0].text,
+            "n_logits": len(logits_spy.processed_logits),
+            "each_logits_shape": logits_spy.processed_logits[0].shape,
+        }
+    )
 
 
 if __name__ == "__main__":
