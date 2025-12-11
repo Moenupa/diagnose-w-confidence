@@ -1,0 +1,57 @@
+[build-system]
+requires = ["uv_build>=0.9.14,<0.10.0"]
+build-backend = "uv_build"
+
+[project]
+name = "diagnose-w-confidence"
+version = "0.1.0"
+description = "VLLM server with confidence score generation for medical diagnosis."
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "transformers",
+    "datasets>=4.4.1",
+    "vllm==0.10.0",
+    "torch==2.7.1",
+    "torchvision",
+    "flash-attn @ https://github.com/Dao-AILab/flash-attention/releases/download/v2.8.3/flash_attn-2.8.3+cu12torch2.7cxx11abiTRUE-cp312-cp312-linux_x86_64.whl",
+    "tenacity>=9.1.2",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+    "pytest-xdist>=3.8.0",
+]
+
+# uv specific indexing for different torch+cuda builds
+[tool.uv.sources]
+torch = [
+	{ index = "pytorch-cu128", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
+torchvision = [
+	{ index = "pytorch-cu128", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu121"
+url = "https://download.pytorch.org/whl/cu121"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu124"
+url = "https://download.pytorch.org/whl/cu124"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu126"
+url = "https://download.pytorch.org/whl/cu126"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[tool.uv]
+no-build-isolation-package = ["flash-attn"]
